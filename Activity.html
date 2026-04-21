@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Technology Research Capstone</title>
+
+<style>
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+  text-align: center;
+}
+
+/* Optional UI */
+.controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #00ffcc;
+  font-family: monospace;
+  z-index: 1;
+}
+
+/* NAVBAR */
+.topnav {
+  background-color: #000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.topnav a {
+  color: #fff;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  font-size: 17px;
+}
+
+.topnav a:hover { background-color: #ff3333; color: black; }
+.topnav a.active { background-color: #ff0000; color: white; }
+.topnav .icon { display: none; }
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #444;
+  min-width: 1px;
+  top: 50px;
+
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+}
+
+.dropdown-content a:hover {
+  background: #ff3333;
+}
+
+.show { display: block; }
+
+.arrow {
+  margin-left: 5px;
+  transition: 0.3s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* MOBILE */
+@media screen and (max-width: 600px) {
+  .topnav { flex-direction: column; align-items: flex-start; }
+  .topnav a { display: none; width: 100%; }
+  .topnav a.icon { display: block; }
+  .topnav.responsive a { display: block; }
+}
+
+/* SECTION */
+.section {
+  padding: 30px;
+}
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* SEARCH */
+#q {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid red;
+  background: black;
+  color: #ff0000;
+}
+
+button {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ff0000;
+  background: black;
+  color: #ff0000;
+  cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+  margin-top: 20px;
+  padding: 20px;
+  border-top: 1px solid red;
+}
+
+/* MATRIX */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* hero Section Box */
+.hero-content img {
+  width: 900%;        /* control size */
+  max-width: 1200px;  /* prevent too big */
+  height: auto;
+  display: block;
+  margin: 20px auto; /* center */
+  border-radius: 10px;
+}
+
+/* Sections */
+.section {
+  padding: 40px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.section.light {
+  background: rgba(20,0,0,0.85);
+}
+
+/* Buttons */
+.hero-content {
+  text-align: center;
+}
+
+.hero-content img {
+  width: 1000%;
+  max-width: 1280px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+  border: 2px solid #ff0d00;
+  box-shadow: 0 0 20px #e50707;
+}    
+
+.btn{
+  background:black;
+  color:#ffffff;
+  padding:10px 30px;
+  border:2px solid #ffffff;
+  border-radius:20px;
+  text-decoration:none;
+  display:inline-block;
+  margin-top:20px;
+  transition:0.2s;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.btn:hover{
+ color: white;
+ text-shadow: 0 0 5px #00ff9f;
+ box-shadow: 0 0 5px #000,
+ 0 0 10px #ff0000,
+ 0 0 20px #ff0000,
+ 0 0 40px #ff0000,
+ 0 0 80px #ff0000,
+ 0 0 160px #ff0000;
+ letter-spacing: 4px;
+ border-color: #000;
+}
+
+
+.ct {
+  position: relative;
+  padding: 20px;
+}
+
+/* Logo stays on the left */
+.logo {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+  gap: 10px; /* space between logo and text */
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #333;
+  background-color: white;
+}
+
+.logo-circle img {
+  width: 120%;
+  height: 120%;
+  object-fit: contain;   /* 👈 shows full image */
+  object-position: center;
+}
+.logo-text {
+  font-size: 18px;
+}
+
+/* Simple header background like navbar */
+.naruto-text {
+  text-align: center;
+  padding: 15px 20px;
+  background-color: #000;           /* flat black like navbar */
+  border-top: 1.5px solid #ff3333;  /* subtle red border */
+  border-bottom: 1px solid #ff5555; /* subtle red bottom border */
+  margin-top: 5px;
+  color: #fff;
+  border-radius: 5px;               /* optional rounded corners */
+}
+
+/* Title */
+.naruto-text h1 {
+  font-size: 26px;
+  margin: 0;
+  color: #ff3333;                    /* matching red color */
+  letter-spacing: 1.5px;
+}
+
+/* Subtitle */
+.naruto-text .subtitle {
+  font-size: 15px;
+  color: #ccc;
+  margin: 2px 0;
+}
+
+/* Year */
+.naruto-text .author {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: rgba(0,0,0,0.9);
+  border-top: 1px solid #ff3333;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.jean {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0,0,0,0.9);
+  border-top: 1px solid #ff3333;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+/* Motto quote */
+.quote {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0a0a0a;
+  margin-bottom: 20px;
+  font-style: italic;
+
+  /* Highlight effect */
+  background: rgb(244, 241, 241);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+
+
+<header class="ct">
+  <div class="logo">
+    <a href="#">
+      <div class="logo-circle">
+        <img src="logo.png" alt="MySite Logo">
+      </div>
+     <span class="logo-text">TEAM CODERED</span>
+    </a>
+  </div>
+
+  <div class="naruto-text">
+    <h1>TEAM CODERED</h1>
+    <p class="subtitle">A Technology Research Capstone</p>
+    <p class="author">| Institution | 2026</p>
+  </div>
+</header>
+
+
+<!-- NAVBAR -->
+<nav class="topnav" id="myTopnav">
+    <a href="Home.html" class="active">Home</a>
+  <a href="About Us.html">About Us</a>
+    
+
+  <div class="dropdown">
+    <a onclick="toggleMenu()">
+      Activity <span id="arrow" class="arrow">▼</span>
+    </a>
+
+    <div id="dropdownMenu" class="dropdown-content">
+      <a href="Marshmallow Challenge.html">Marshmallow Challenge</a>
+       <a href="Elevator pitch.html">Elevator pitch</a>
+    </div>
+  </div>
+
+   <a href="Website presentation.html".html">website presentation</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+</nav>
+<br>
+
+<br>
+
+<div class="hero-content matrix-box">
+  <canvas class="matrixLocal"></canvas>
+  
+  <img src="6.png" alt="Welcome">
+</div>
+<div>
+
+<h2>FIRST ACTIVITY</h2>
+
+<div class="gallery">
+  <img src="12.jpg" alt="Image 1">
+  <img src="13.jpg" alt="Image 2">
+  <img src="14.jpg" alt="Image 3">
+  <img src="15.jpg" alt="Image 4">
+  <img src="17.jpg" alt="Image 5">
+</div>
+
+<p class="quote">"MARSHMALLOW CHALLENGE"</p>
+<div class="jean">
+<p>
+The Marshmallow Challenge is a team-building activity where my group and I are given spaghetti sticks,
+tape, string, and a marshmallow. We must build the tallest structure with the marshmallow on top.
+This teaches teamwork, creativity, and fast problem-solving.
+</p>
+</div>
+
+<a class="btn" href="Marshmallow Challenge.html">
+😉Marshmallow Challenge⬅️
+</a> </br>
+
+</section>
+
+<br>
+
+<br>
+
+<br>
+
+<footer>
+<p>ILOILO STATE UNIVERSITY OF FISHERIES SCIENCE AND TECHNOLOGY</p>
+<p>Created by Charles Brian Taberna</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById("dropdownMenu").classList.toggle("show");
+  document.getElementById("arrow").classList.toggle("rotate");
+}
+
+window.onclick = function(e) {
+  if (!e.target.closest('.dropdown')) {
+    document.getElementById("dropdownMenu").classList.remove("show");
+    document.getElementById("arrow").classList.remove("rotate");
+  }
+}
+
+function myFunction() {
+  let x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+function search() {
+  let q = document.getElementById("q").value;
+  if(q){
+    window.open("https://www.google.com/search?q=" + q);
+  }
+}
+
+let scene, camera, renderer;
+let particles, lines;
+let positions, velocities;
+
+const COUNT = 300;
+const MAX_DISTANCE = 1.5;
+
+init();
+animate();
+
+function init() {
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 6;
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  // ✅ BACKGROUND FIX
+  const canvas = renderer.domElement;
+  canvas.style.position = "fixed";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.zIndex = "-1";
+  document.body.appendChild(canvas);
+
+  // PARTICLES
+  positions = new Float32Array(COUNT * 3);
+  velocities = new Float32Array(COUNT * 3);
+
+  for (let i = 0; i < COUNT * 3; i += 3) {
+    positions[i] = (Math.random() - 0.5) * 10;
+    positions[i+1] = (Math.random() - 0.5) * 10;
+    positions[i+2] = (Math.random() - 0.5) * 10;
+
+    velocities[i] = (Math.random() - 0.5) * 0.02;
+    velocities[i+1] = (Math.random() - 0.5) * 0.02;
+    velocities[i+2] = (Math.random() - 0.5) * 0.02;
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({
+    color: 0xff1a1a,
+    size: 0.05,
+    transparent: true,
+    opacity: 0.9
+  });
+
+  particles = new THREE.Points(geometry, material);
+  scene.add(particles);
+
+  // LINES
+  const lineGeometry = new THREE.BufferGeometry();
+  const linePositions = new Float32Array(COUNT * COUNT * 3);
+
+  lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+
+  const lineMaterial = new THREE.LineBasicMaterial({
+    color: 0xff0000,
+    transparent: true,
+    opacity: 0.15
+  });
+
+  lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+  scene.add(lines);
+
+  window.addEventListener("resize", onResize);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  updateParticles();
+  connectLines();
+
+  particles.rotation.y += 0.001;
+  lines.rotation.y += 0.001;
+
+  renderer.render(scene, camera);
+}
+
+function updateParticles() {
+  for (let i = 0; i < COUNT * 3; i += 3) {
+    positions[i] += velocities[i];
+    positions[i+1] += velocities[i+1];
+    positions[i+2] += velocities[i+2];
+
+    for (let j = 0; j < 3; j++) {
+      if (positions[i+j] > 5 || positions[i+j] < -5) {
+        velocities[i+j] *= -1;
+      }
+    }
+  }
+
+  particles.geometry.attributes.position.needsUpdate = true;
+}
+
+function connectLines() {
+  const pos = particles.geometry.attributes.position.array;
+  const linePos = lines.geometry.attributes.position.array;
+
+  let index = 0;
+
+  for (let i = 0; i < COUNT; i++) {
+    for (let j = i + 1; j < COUNT; j++) {
+
+      const dx = pos[i*3] - pos[j*3];
+      const dy = pos[i*3+1] - pos[j*3+1];
+      const dz = pos[i*3+2] - pos[j*3+2];
+
+      const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+      if (dist < MAX_DISTANCE) {
+        linePos[index++] = pos[i*3];
+        linePos[index++] = pos[i*3+1];
+        linePos[index++] = pos[i*3+2];
+
+        linePos[index++] = pos[j*3];
+        linePos[index++] = pos[j*3+1];
+        linePos[index++] = pos[j*3+2];
+      }
+    }
+  }
+
+  lines.geometry.setDrawRange(0, index / 3);
+  lines.geometry.attributes.position.needsUpdate = true;
+}
+
+function onResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+</script>
+
+</body>
+</html>

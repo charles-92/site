@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Technology Research Capstone</title>
+
+<style>
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  background: #000;
+  color: white;
+  overflow-x: hidden;
+  text-align: center;
+}
+
+/* NAVBAR */
+.topnav {
+  background-color: #000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.topnav a {
+  color: #fff;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.topnav a:hover { background-color: #ff3333; color: black; }
+.topnav a.active { background-color: #ff0d00; color: white; }
+.topnav .icon { display: none; }
+
+/* DROPDOWN */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #444;
+  min-width: 1px;
+  top: 50px;
+
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+}
+
+.dropdown-content a:hover {
+  background: #ff3333;
+}
+
+.show { display: block; }
+
+.arrow {
+  margin-left: 5px;
+  transition: 0.3s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* MOBILE */
+@media screen and (max-width: 600px) {
+  .topnav { flex-direction: column; align-items: flex-start; }
+  .topnav a { display: none; width: 100%; }
+  .topnav a.icon { display: block; }
+  .topnav.responsive a { display: block; }
+}
+
+/* HEADER */
+header {
+  padding: 10px;
+  border-bottom: 1px solid #ff3333;
+}
+
+/* SECTION */
+.section {
+  padding: 30px;
+}
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 10px;
+  padding: 20px;
+
+  background-image: url("y.jpg"); /* your background image */
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* SEARCH */
+#q {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid red;
+  background: black;
+  color: #ff3333;
+}
+
+button {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ff3333;
+  background: black;
+  color: #ff3333;
+  cursor: pointer;
+}
+
+/* FOOTER */
+footer {
+  margin-top: 20px;
+  padding: 20px;
+  border-top: 1px solid red;
+}
+
+/* MATRIX */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.hero-content img {
+  width: 900%;        /* control size */
+  max-width: 1200px;  /* prevent too big */
+  height: auto;
+  display: block;
+  margin: 20px auto; /* center */
+  border-radius: 10px;
+}
+
+/* Sections */
+.section {
+  padding: 40px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.section.light {
+  background: rgba(20,0,0,0.85);
+}
+
+/* Buttons */
+.hero-content {
+  text-align: center;
+}
+
+.hero-content img {
+  width: 1000%;
+  max-width: 1280px;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+  border: 2px solid #ff0d00;
+  box-shadow: 0 0 20px #e50707;
+}  
+
+ g{
+  border: 2px solid red;
+  padding: 10px; 
+  border-radius: 8px;
+  background: rgba(11, 11, 11, 0.9); 
+  color: rgb(249, 248, 248); 
+  display: inline-block; 
+  margin: 10px auto; 
+}
+
+.media-container {
+  max-width: 800px;
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.media-container p {
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+/* TV screen effect */
+.media-container video {
+  width: 99%;
+  max-height: 450px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 8px solid #333;   /* TV frame border */
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.7); /* inner shadow like screen */
+}
+
+.ct {
+  position: relative;
+  padding: 20px;
+}
+
+/* Logo stays on the left */
+.logo {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+  gap: 10px; /* space between logo and text */
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #333;
+  background-color: white;
+}
+
+.logo-circle img {
+  width: 120%;
+  height: 120%;
+  object-fit: contain;   /* 👈 shows full image */
+  object-position: center;
+}
+.logo-text {
+  font-size: 18px;
+}
+
+/* Simple header background like navbar */
+.naruto-text {
+  text-align: center;
+  padding: 15px 20px;
+  background-color: #000;           /* flat black like navbar */
+  border-top: 1.5px solid #ff3333;  /* subtle red border */
+  border-bottom: 1px solid #ff5555; /* subtle red bottom border */
+  margin-top: 5px;
+  color: #fff;
+  border-radius: 5px;               /* optional rounded corners */
+}
+
+/* Title */
+.naruto-text h1 {
+  font-size: 26px;
+  margin: 0;
+  color: #ff3333;                    /* matching red color */
+  letter-spacing: 1.5px;
+}
+
+/* Subtitle */
+.naruto-text .subtitle {
+  font-size: 15px;
+  color: #ccc;
+  margin: 2px 0;
+}
+
+/* Year */
+.naruto-text .author {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: rgba(0,0,0,0.9);
+  border-top: 1px solid #ff3333;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<canvas id="matrixCanvas"></canvas>
+
+<header class="ct">
+  <div class="logo">
+    <a href="#">
+      <div class="logo-circle">
+        <img src="logo.png" alt="MySite Logo">
+      </div>
+     <span class="logo-text">TEAM CODERED</span>
+    </a>
+  </div>
+
+   <div class="naruto-text">
+    <h1>TEAM CODERED</h1>
+    <p class="subtitle">|A Technology Research Capstone|</p>
+    <p class="author"> |2026 |</p>
+  </div>
+</header>
+
+
+<!-- NAVBAR -->
+<nav class="topnav" id="myTopnav">
+  <a href="Home.html" class="active">Home</a>
+  <a href="About Us.html">About Us</a>
+
+  <div class="dropdown">
+    <a onclick="toggleMenu()">
+      Activity <span id="arrow" class="arrow">▼</span>
+    </a>
+
+    <div id="dropdownMenu" class="dropdown-content">
+      <a href="Marshmallow Challenge.html">Marshmallow Challenge</a>
+      <a href="Elevator pitch.html">Elevator pitch</a>
+    </div>
+  </div>
+
+   <a href="Website presentation.html">website presentation</a>
+
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+</nav>
+
+
+<br>
+
+<br>
+
+<div class="hero-content matrix-box">
+  <canvas class="matrixLocal"></canvas>
+  
+  <img src="6.png" alt="Welcome">
+</div>
+<div>
+
+  <h2>MARSHMALLOW CHALLENGE</h2>
+
+<div class="gallery">
+  <img src="11.jpg">
+  <img src="13.jpg">
+  <img src="14.jpg">
+  <img src="15.jpg">
+  <img src="17.jpg">
+</div>
+
+<g><p>
+  <h2>GROUP REFLECTION</h2>
+So, what we learned about in this activity is it taught us an important lesson about teamwork and decision making. Our group failed to build a stable marshmallow tower because we focused too much on making it tallest instead of making it strong and balanced. Because of this activity, we realized that having a clear plan and prioritizing stability are more important than aiming for height. This helped us understand that success is not just about big goals, but also about smart planning and learning about mistakes.
+</p></g>
+
+<!-- Video -->
+<div class="media-container">
+ <h2>Marshmallow Challenge Video</h2>
+  <video controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
+
+</section>
+
+<footer>
+<p>ILOILO STATE UNIVERSITY OF FISHERIES SCIENCE AND TECHNOLOGY</p>
+<p>Created by Charles Brian Taberna CODERED</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById("dropdownMenu").classList.toggle("show");
+  document.getElementById("arrow").classList.toggle("rotate");
+}
+
+window.onclick = function(e) {
+  if (!e.target.closest('.dropdown')) {
+    document.getElementById("dropdownMenu").classList.remove("show");
+    document.getElementById("arrow").classList.remove("rotate");
+  }
+}
+
+function myFunction() {
+  let x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
+function search() {
+  let q = document.getElementById("q").value;
+  if(q){
+    window.open("https://www.google.com/search?q=" + q);
+  }
+}
+
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const NODE_COUNT = 120;
+const MAX_DISTANCE = 140;
+const lineAlpha = 0.12;
+
+let nodes = [];
+for (let i = 0; i < NODE_COUNT; i++) {
+  nodes.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    dx: (Math.random() - 0.5) * 0.8,
+    dy: (Math.random() - 0.5) * 0.8,
+    size: Math.random() * 3 + 1.5,
+    hue: 0, // red hue
+    char: String.fromCharCode(33 + Math.floor(Math.random() * 94))
+  });
+}
+
+// get red shade
+function getNodeColor() {
+  // different red variations for depth
+  const reds = [
+    "hsla(0, 90%, 60%, 0.9)",   // bright red
+    "hsla(0, 80%, 50%, 0.85)",  // medium red
+    "hsla(0, 100%, 70%, 0.9)",  // neon red
+    "hsla(0, 95%, 55%, 0.9)"    // darker red
+  ];
+  return reds[Math.floor(Math.random() * reds.length)];
+}
+
+function draw() {
+  // dark background with subtle red trail
+  ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // draw nodes as glowing red code characters
+  nodes.forEach(n => {
+    ctx.font = `${n.size * 4}px monospace`;
+    ctx.fillStyle = getNodeColor();
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.shadowBlur = 8;
+    ctx.fillText(n.char, n.x, n.y);
+  });
+
+  // connect nodes with glowing red lines
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      let dx = nodes[i].x - nodes[j].x;
+      let dy = nodes[i].y - nodes[j].y;
+      let dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < MAX_DISTANCE) {
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = `hsla(0, 90%, 60%, ${lineAlpha})`;
+        ctx.lineWidth = 1.2;
+        ctx.shadowColor = ctx.strokeStyle;
+        ctx.shadowBlur = 6;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // move nodes
+  nodes.forEach(n => {
+    n.x += n.dx;
+    n.y += n.dy;
+    if (n.x < 0 || n.x > canvas.width) n.dx *= -1;
+    if (n.y < 0 || n.y > canvas.height) n.dy *= -1;
+
+    // randomly change character
+    if (Math.random() < 0.02) {
+      n.char = String.fromCharCode(33 + Math.floor(Math.random() * 94));
+    }
+  });
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+// responsive
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
